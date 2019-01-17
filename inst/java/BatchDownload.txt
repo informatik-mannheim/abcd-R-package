@@ -1,0 +1,204 @@
+Homo sapiens chromosome 1, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000001.11
+
+Homo sapiens chromosome 2, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000002.12
+
+Homo sapiens chromosome 3, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000003.12
+
+Homo sapiens chromosome 4, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000004.12
+
+Homo sapiens chromosome 5, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000005.10
+
+Homo sapiens chromosome 6, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000006.12
+
+Homo sapiens chromosome 7, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000007.14
+
+Homo sapiens chromosome 8, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000008.11
+
+Homo sapiens chromosome 9, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000009.12
+
+Homo sapiens chromosome 10, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000010.11
+
+Homo sapiens chromosome 11, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000011.10
+
+Homo sapiens chromosome 12, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000012.12
+
+Homo sapiens chromosome 13, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000013.11
+
+Homo sapiens chromosome 14, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000014.9
+
+Homo sapiens chromosome 15, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000015.10
+
+Homo sapiens chromosome 16, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000016.10
+
+Homo sapiens chromosome 17, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000017.11
+
+Homo sapiens chromosome 18, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000018.10
+
+Homo sapiens chromosome 19, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000019.10
+
+Homo sapiens chromosome 20, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000020.11
+
+Homo sapiens chromosome 21, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000021.9
+
+Homo sapiens chromosome 22, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000022.11
+
+Homo sapiens chromosome X, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000023.11
+
+Homo sapiens chromosome Y, GRCh38.p7 Primary Assembly
+https://www.ncbi.nlm.nih.gov/nuccore/NC_000024.10
+
+
+
+Caenorhabditis elegans chromosome I
+https://www.ncbi.nlm.nih.gov/nuccore/BX284601.5
+
+Caenorhabditis elegans chromosome II
+https://www.ncbi.nlm.nih.gov/nuccore/BX284602.5
+
+Caenorhabditis elegans chromosome III
+https://www.ncbi.nlm.nih.gov/nuccore/BX284603.4
+
+Caenorhabditis elegans chromosome IV
+https://www.ncbi.nlm.nih.gov/nuccore/BX284604.4
+
+Caenorhabditis elegans chromosome V
+https://www.ncbi.nlm.nih.gov/nuccore/BX284605.5
+
+Caenorhabditis elegans chromosome X
+https://www.ncbi.nlm.nih.gov/nuccore/BX284606.5
+
+
+
+Arabidopsis thaliana chromosome 1 sequence
+https://www.ncbi.nlm.nih.gov/nuccore/NC_003070.9
+
+Arabidopsis thaliana chromosome 2 sequence
+https://www.ncbi.nlm.nih.gov/nuccore/NC_003071.7
+
+Arabidopsis thaliana chromosome 3 sequence
+https://www.ncbi.nlm.nih.gov/nuccore/NC_003074.8
+
+Arabidopsis thaliana chromosome 4 sequence
+https://www.ncbi.nlm.nih.gov/nuccore/NC_003075.7
+
+Arabidopsis thaliana chromosome 5 sequence
+https://www.ncbi.nlm.nih.gov/nuccore/NC_003076.8
+
+
+Chlamydomonas reinhardtii complete mitochondrial genome
+https://www.ncbi.nlm.nih.gov/nuccore/U03843.1
+
+
+Oryza sativa Japonica Group DNA, chromosome 1, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008207.2
+
+Oryza sativa Japonica Group DNA, chromosome 2, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008208.2
+
+Oryza sativa Japonica Group DNA, chromosome 3, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008209.2
+
+Oryza sativa Japonica Group DNA, chromosome 4, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008210.2
+
+Oryza sativa Japonica Group DNA, chromosome 5, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008211.2
+
+Oryza sativa Japonica Group DNA, chromosome 6, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008212.2
+
+Oryza sativa Japonica Group DNA, chromosome 7, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008213.2
+
+Oryza sativa Japonica Group DNA, chromosome 8, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008214.2
+
+Oryza sativa Japonica Group DNA, chromosome 9, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008215.2
+
+Oryza sativa Japonica Group DNA, chromosome 10, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008216.2
+
+Oryza sativa Japonica Group DNA, chromosome 11, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008217.2
+
+Oryza sativa Japonica Group DNA, chromosome 12, complete sequence, cultivar: Nipponbare
+https://www.ncbi.nlm.nih.gov/nuccore/AP008218.2
+
+
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 1, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008962.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 2, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008963.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 3, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008964.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 4, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008965.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 5, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008966.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 6, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008967.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 7, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008968.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 8, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008969.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 9, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008970.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 10, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008971.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 11, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008972.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 12, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008973.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 13, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008974.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 14, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008975.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 15, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008976.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 16, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008977.1
+
+Chlamydomonas reinhardtii strain CC-503 cw92 mt+ chromosome 17, whole genome shotgun sequence
+https://www.ncbi.nlm.nih.gov/nuccore/CM008978.1
+
+

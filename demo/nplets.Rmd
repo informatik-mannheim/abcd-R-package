@@ -1,0 +1,264 @@
+---
+title: "User's manual for GCAT's *abcd* package"
+output:
+  html_notebook: 
+    fig_width: 7
+    number_sections: yes
+    toc: yes
+  pdf_document: default
+---
+```{r include=FALSE}
+library("abcd")
+abcdversion = "0.9-x"
+```
+
+Markus Gumbel, Ali Karpuzoglu
+
+Mannheim University of Applied Sciences
+
+This tutorial is for *abcd* version `r abcdversion`.
+
+# Overview
+
+This document introduces the *abcd* (**A**nalysis of **B**ase **C**omposition of long **D**NA sequences) package which belongs to a familiy of R packages known as GCAT R packages (Genetic Code Analysis Toolkit). The R package *abcd* can be used for the analysis of n-plets and the skew. More information about GCAT can be found at http://wwww.gcat.bio.
+
+# Installation of package *abcd*
+
+**Note**: We are working on a simpler installation procedure - this is work in progress.
+
+The R package abcd requires
+
+ * R (in version 3.1 or higher)
+ * packages `rJava` and `seqinr`
+ * Java virtual machine (Java 8 or higher)
+ 
+We recommend Rstudio as a workbench.
+
+*abcd* internally calls Java routines; before the package itself is going to be installed, you need to install `rJava`. Type in the R console:
+```
+install.packages("rJava")
+```
+Next install `seqinr`, the package for accessing genetic sequences and more.
+```
+install.packages("seqinr")
+```
+
+The steps above only need to be done once. Anytime you update the *abcd* package these steps are not required anymore.
+
+Finally, we need to prepare the JVM anytime we start a R session, e.g. after launching Rstudio. **Important**: The JVM must be of the same architecture than R itself. If R is 32 bit (x86) you also need a x86 JVM. On the other hand, if R is 64 bit (x64) the JVM has to be a x64 version, too.
+
+Run the following command to indicate R where the JVM is or set `JAVA_HOME` as an environment variable in your operating system. This differs from computer to computer and operating system to operating system. Under windows it looks something like this where `<NUMBER>` indicates a specific JVM version:
+```
+Sys.setenv(JAVA_HOME="C:/Program Files/Java/jdk<NUMBER>")
+```
+Under Mac it is typically:
+```
+Sys.setenv(JAVA_HOME=""/Library/Java/JavaVirtualMachines/jdk<NUMBER>")
+```
+
+Now the *abcd* package itself can be installed or updated. You might skip this step if *abcd* is up-to-date. We assume that `abcd_0.9-0.tar.gz` is the package - certainly there will be other versions in the future. Type:
+```
+install.packages("abcd_0.9-0.tar.gz", 
+     INSTALL_opts = "--no-multiarch", # Ignore architecture
+     repos = NULL) # allows us to use a file; no download
+```
+We are almost done. Just type
+```
+library("abcd")
+```
+to load the library. You should now be ready to go!
+
+Note that you can browse the manual where each function is described in detail. In RStudio: go to Packages, click on the library *abcd*.
+
+# Skew
+
+## Skew for single nucleotides
+Let us use the following short sequence as an example:
+```{r}
+seq = "AGTACGCAGTGGCCAATA"
+```
+
+The base distribution over a sequence can be calculated with:
+```{r}
+dist = sequence.basedist(seq)
+dist
+```
+It returns a vector with labels for each base. 
+
+The skews $S_{A\sim T}(1,1)$ and $S_{C\sim G}(1,1)$ is calculated with:
+```{r}
+skew(seq)
+```
+Internally, the base distribution is calculated first.
+
+## Skew for n-plets
+Next we want to calculate the skew for n-plet. The following example gives us the skews for a n-plet size of $n=3$.
+
+```{r}
+nplet.skew(seq, 3)
+```
+An n-plet of size 3 has 3 positions ($k = 1,2,3$) where the skew is calculated. This is returned by this function. The names of the skew (header) are the positions.
+
+There is also an alternative implementation of the skew function that is based on Java. It computes the skew much faster than the R version.
+Before Java can be used we need to prepare R to work with Java. The abcd package will automatically do this for you at start time.
+
+The Java based skew is calculated with:
+```{r}
+nplet.skewj(seq, 3)
+```
+Clearly, we obtain the same result.
+
+The nplet.skew function can be generalized by passing a vector of n-plet sizes to the `nplet.skews` function (note skews not skew in the function name).
+
+```{r}
+skews123 = nplet.skews(seq, c(1,2,3))
+skews123
+```
+As we can see, the return value is more complex: it consists of two nested lists:
+
+ * A-T skew and then the skew for all positions (here 1 to 3).
+ * C-G skew and then again the skew for all positions.
+ 
+If we want to access the C-G skews for position 2 we simply can query:
+```{r}
+skews123$cg$`2`
+```
+ 
+By default, this functions uses the Java-based version. The parameter `skewF` can be set to change the function: `skewF = nplet.skew` or `skewF = nplet.skewj`.
+
+# Boxplot for n-plet skews
+
+Let us load a slightly larger DNA sequence in the fasta format that is stored in data/demo.fasta. The function `seq.fastaread()` reas a fasta file and returns the first entry.
+```{r}
+library("seqinr") # This library provides a read fasta function.
+filename = "../data/demo.fasta"
+demoseq = sequence.fastaread(filename)
+sequence.basedist(demoseq)
+nsizes = 2:20
+demoskews = nplet.skews(demoseq, nsizes)
+demoskews
+```
+There is a convenience command `nplet.skewplot` which plots the skew for different n-plet sizes.
+```{r}
+nplet.skewplot(demoskews,
+               seqId = "demo sequence",
+               yMax = .2)        # Range of y-axis
+```
+
+# Standard deviation of skews
+
+```{r}
+nsizes = 2:20
+skews = nplet.skews(demoseq, nSizes = nsizes)
+unlist(lapply(skews$at, sd)) # std. deviation of AT skews
+unlist(lapply(skews$cg, sd)) # std. deviation of CG skews
+nplet.sdskewplot(skews, nSizes = nsizes, seqId = "demo sequence",
+                 yMax = .2)
+```
+
+# Normalized skews
+
+Calculate the sample-size normalized skews and plot them:
+```{r}
+#nsizes = c(5,10,15,20)
+ndemoskews = nplet.sizenormskews(demoseq, nsizes)
+nplet.normskewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
+```
+Also plot the standard deviations:
+```{r}
+nplet.sdskewplot(ndemoskews, nSizes = nsizes, seqId = "demo sequence",
+                 yMax = .2)
+```
+
+```{r}
+ndemoskews = nplet.normpartskews(demoseq, c(5,10,15,20))
+nplet.normskewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
+```
+
+
+# n-plet skews in partitions of sequences
+
+n-plet skews may not only be calculated for the entire sequence but also for a partition of a sequence, i.e. a subsequence. First, we introduce the `subseqpart` function which simply divides a sequence into m partitions of the same size $N / m$ where $N$ is the length of the sequence. Example:
+```{r}
+seq
+subseqpart(seq, 3 , 1)
+subseqpart(seq, 3 , 2)
+subseqpart(seq, 3 , 3)
+```
+
+The function `nplet.partskew` calculates the skews for all partitions. Let us use the longer sequence `demoseq`:
+```{r}
+part = nplet.partskew(demoseq, 
+                      nSize = 3,  # n-plet size
+                      pCount = 4) # Number of partitions
+part
+```
+
+The result is (again) a complex data structure:
+
+ * The first entry encapsulated the A-T skews
+  + then there is a list of partitions (here 1 to 4)
+   - followed by the number of skews for each position in the n-plet (here 1,2,3)
+   
+ * The second entry is the same for the C-G skew.
+ 
+ Finally, we can plot the results as a boxplot with `nplet.partskewplot`:
+```{r}
+nplet.partskewplot(demoseq, 
+                   nSize = 4,  # n-plet size
+                   pCount = 4, # Number of partitions
+                   seqId = "demo sequence",
+                   yMax = .5)
+```
+Note that the x-axis shows now the partion (not the n-plet size).
+ 
+```{r}
+nplet.partskewplot(demoseq, 
+                   nSize = 4,  # n-plet size
+                   pCount = 2 * 4, # Number of partitions
+                   seqId = "demo sequence",
+                   yMax = .5)
+```
+
+# Random sequences
+
+(under construction)
+
+`sequence.condbaseprob` calculates the conditional probabilities of bases for a DNA or RNA sequence. The following example does this for the demo sequence. As output we calculate the values in percentage and round them to one digit.
+
+```{R}
+cp = sequence.condbaseprob(demoseq)
+round(cp * 100, digits = 1)
+``` 
+Note that there is a special base `N` that represents an unknown base.
+
+The function `sequence.rndbycondprob` generates a random DNA sequence of a given length using conditional probabilities:
+```{R}
+seqrnd = sequence.rndbycondprob(50, cp)
+seqrnd
+sequence.basedist(seqrnd)
+sequence.basedist(seqrnd) / sum(sequence.basedist(seqrnd))
+``` 
+or for a longer random sequence:
+```{R}
+seqrnd2 = sequence.rndbycondprob(100000, cp)
+sequence.basedist(seqrnd2)
+sequence.basedist(seqrnd2) / sum(sequence.basedist(seqrnd2))
+``` 
+
+# Some definitions
+
+In this text we use the following variables or constants:
+
+ * *N* is the size (length) of a sequence
+ * *n* is the size of a n-plet
+ * *m* is the number of partitions
+ 
+ 
+Let us denote the nucleotide bases {by $B:=\{A,C,G,T(U)\}$ whose letters $A,C, G$ and $T(U)$ stand for Adenine, Cytosine, Guanine and Thymine (Uracil), respectively. Thus the alphabet consists of four letters and its powers $B^2=\{ N_1N_2: N_i \in B\}$ and $B^3=\{ N_1N_2N_3 : N_i \in B\}$ contain all *dinucleotides*}* and all *trinucleotides*, the latter being the codons. For an arbitrary $n\in IN$ we will call elements of $B^n=\{ N_1N_2...N_n : N_i \in B\}$ $n$-nucleotides or, equivalently, $n$-plets.
+
+$$F_n(X;N,k)$$ 
+is the absolute frequency of the nucleotide base $N$ in the $k$ th positions ($1\leq k\leq n$) of each $n$-plet in  $X_n$.
+
+A skew is defined for two bases $N$ and $M$: 
+$$S_{N\sim M}(n,k)=\frac{F_n(X;N;k)-F_n(X;M;k)}{F_n(X;N;k)+F_n(X;M;k)}$$

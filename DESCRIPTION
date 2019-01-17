@@ -1,0 +1,19 @@
+Package: abcd
+Version: 0.9-0
+Date: 2019-01-11
+Title: ABCD tool for skew-based n-plet analysis
+Authors@R: c(
+    person("Markus Gumbel", "Developer", role = c("aut", "cre"),
+           email = "m.gumbel@hs-mannheim.de"),
+    person("Ali Karpuzoglu", "Developer Java", role = c("aut"),
+           email = "ali.karpuzoglu@gmail.com")
+           )
+Author: Markus Gumbel [aut, cre]
+Maintainer: Markus Gumbel <m.gumbel@hs-mannheim.de>
+Depends: R (>= 3.1.0), seqinr, rJava
+Suggests: testthat
+Description: Analyze a DNA sequence for skew-based n-plets.
+License: Apache License, Version 2.0
+URL: https://www.r-project.org, http://www.gcat.bio
+BugReports: https://pkgname.bugtracker.url
+RoxygenNote: 6.0.1
