@@ -1,6 +1,6 @@
 Package: abcd
-Version: 0.9-0
-Date: 2019-01-11
+Version: 0.9-1
+Date: 2019-01-18
 Title: ABCD tool for skew-based n-plet analysis
 Authors@R: c(
     person("Markus Gumbel", "Developer", role = c("aut", "cre"),

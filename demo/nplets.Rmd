@@ -108,18 +108,18 @@ nplet.skewj(seq, 3)
 ```
 Clearly, we obtain the same result.
 
-The nplet.skew function can be generalized by passing a vector of n-plet sizes to the `nplet.skews` function (note skews not skew in the function name).
+The `nplet.skew` function can be generalized by passing a vector of n-plet sizes to the `nplet.skews` function (note "skews" not "skew" in the function name).
 
 ```{r}
 skews123 = nplet.skews(seq, c(1,2,3))
 skews123
 ```
-As we can see, the return value is more complex: it consists of two nested lists:
+As we can see, the return value (data structure) is more complex: it consists of two nested lists:
 
- * A-T skew and then the skew for all positions (here 1 to 3).
- * C-G skew and then again the skew for all positions.
+ * A-T skew and then the skew for all n-plet sizes (here 1 to 3).
+ * C-G skew and then again the skew for all n-plet sizes.
  
-If we want to access the C-G skews for position 2 we simply can query:
+If we want to access the C-G skews for n-plet size 2 we simply can query:
 ```{r}
 skews123$cg$`2`
 ```
@@ -128,53 +128,72 @@ By default, this functions uses the Java-based version. The parameter `skewF` ca
 
 # Boxplot for n-plet skews
 
-Let us load a slightly larger DNA sequence in the fasta format that is stored in data/demo.fasta. The function `seq.fastaread()` reas a fasta file and returns the first entry.
+Let us load a slightly larger DNA sequence of about 2800 bases in the fasta format that is stored in `data/demo.fasta`. The function `seq.fastaread` reas a fasta file and returns the first entry.
 ```{r}
 library("seqinr") # This library provides a read fasta function.
 filename = "../data/demo.fasta"
 demoseq = sequence.fastaread(filename)
 sequence.basedist(demoseq)
-nsizes = 2:20
+```
+In the following sections we use the n-plet sizes `nsizes = c(2, 3, 10, 30, 50)` by default.
+```{r}
+nsizes = c(2, 3, 10, 30, 50) # default n-plet sizes
 demoskews = nplet.skews(demoseq, nsizes)
 demoskews
 ```
-There is a convenience command `nplet.skewplot` which plots the skew for different n-plet sizes.
+There is a convenience command `nplet.skewplot` which plots the skews for different n-plet sizes.
 ```{r}
 nplet.skewplot(demoskews,
                seqId = "demo sequence",
-               yMax = .2)        # Range of y-axis
+               yMax = .5)        # Range of y-axis
 ```
 
 # Standard deviation of skews
 
+The following R command calculates the standard deviation of the skews in different positions for iven n-plet sizes.
+
 ```{r}
-nsizes = 2:20
 skews = nplet.skews(demoseq, nSizes = nsizes)
 unlist(lapply(skews$at, sd)) # std. deviation of AT skews
 unlist(lapply(skews$cg, sd)) # std. deviation of CG skews
+```
+The list of standard deviations can be plotted with the function `nplet.sdskewplot`. Note that this function calculates the standard deviation, i.e. a parameter is the skews:
+```{r}
 nplet.sdskewplot(skews, nSizes = nsizes, seqId = "demo sequence",
                  yMax = .2)
 ```
 
 # Normalized skews
 
-Calculate the sample-size normalized skews and plot them:
+Calculate the sample-size normalized skews with the function `nplet.sizenormskews` and plot them with `nplet.skewplot`. Note that we use the optional parameter `ylabPrefix` in `nplet.skewplot` to modify the y-axis label:
 ```{r}
-#nsizes = c(5,10,15,20)
 ndemoskews = nplet.sizenormskews(demoseq, nsizes)
-nplet.normskewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
+nplet.skewplot(ndemoskews, seqId = "demo sequence", yMax = 0.5, 
+               ylabPrefix = "size norm. ")
 ```
-Also plot the standard deviations:
+Also plot the standard deviations; again with the the `ylabPrefix` parameter:
 ```{r}
 nplet.sdskewplot(ndemoskews, nSizes = nsizes, seqId = "demo sequence",
-                 yMax = .2)
+                 yMax = .25, ylabPrefix = "size norm.")
 ```
+
+
+# n-plet skews of sequences with different lengths
+
+We'd like to analyze now how the n-plet skews differ if we have sequences of different lengths. Let us take the demo sequence again and calculate the skews for n-plets of size 20 for length 100 and 1000. The demo sequence contains about 2800 bases:
 
 ```{r}
-ndemoskews = nplet.normpartskews(demoseq, c(5,10,15,20))
-nplet.normskewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
+sdemoskews = nplet.nskewpersize(demoseq, sizes = c(500, 1000), n = 20)
+sdemoskews
 ```
-
+Now we calculate the standard deviation of these values with the convenience function `nplet.stddevpersize` and plot them with `nplet.stddevplotpersize`. We add "n = 20" to the plot's title to indicate that the data is for a n-plet size of 20:
+```{r}
+sdsdemoskews = nplet.stddevpersize(sdemoskews)
+sdsdemoskews
+nplet.stddevplotpersize(sdsdemoskews, seqId = "demo sequence; n = 20", 
+                        yMax = 0.5, xtickssize = 2)
+```
+As we can see, the A~T skews of the short seqence (|X|=100) is not a number.
 
 # n-plet skews in partitions of sequences
 
@@ -197,8 +216,10 @@ part
 The result is (again) a complex data structure:
 
  * The first entry encapsulated the A-T skews
+ 
   + then there is a list of partitions (here 1 to 4)
-   - followed by the number of skews for each position in the n-plet (here 1,2,3)
+  
+   - followed by the number of skews for each position (here 1,2,3) in the n-plet of size 3 
    
  * The second entry is the same for the C-G skew.
  
@@ -210,7 +231,7 @@ nplet.partskewplot(demoseq,
                    seqId = "demo sequence",
                    yMax = .5)
 ```
-Note that the x-axis shows now the partion (not the n-plet size).
+Note that the x-axis shows now the partition (not the n-plet size). Once again with two times more partitions:
  
 ```{r}
 nplet.partskewplot(demoseq, 
@@ -262,3 +283,23 @@ is the absolute frequency of the nucleotide base $N$ in the $k$ th positions ($1
 
 A skew is defined for two bases $N$ and $M$: 
 $$S_{N\sim M}(n,k)=\frac{F_n(X;N;k)-F_n(X;M;k)}{F_n(X;N;k)+F_n(X;M;k)}$$
+
+# Outtakes
+
+Here are some obsolete things:
+
+## Normalization with mixed positions
+
+As used in J. theor. Paper manuscript:
+```{r}
+ndemoskews = nplet.normrandskews_(demoseq, nsizes)
+nplet.skewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
+```
+
+## Normalization based on partitions?
+
+I do not know anymore why we have this.
+```{r}
+ndemoskews = nplet.normpartskews_(demoseq, nsizes)
+nplet.skewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
+```

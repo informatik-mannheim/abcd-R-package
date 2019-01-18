@@ -21,13 +21,13 @@
 #' @param seq Sequence as a string.
 #' @param sizes Vector of sizes. The maximal size must be less than 95% 
 #' of the size of the sequence.
-#' @param n The n-plet size. Default is 10^3, 10^4, 10^5 and 10^6.
+#' @param n The n-plet size. Default is 3.
 #' @param skewF Function for the calcuation of the skew: either nplet.skew
 #' for the R version for nplet.skewJ for the Java version. 
 #' Default is nplet.skewj.
 #'
 #' @return List with two entries: First entry contains the A-T skews for all
-#' lenghts, second entry the C-G skews accordingly. 
+#' lengths, second entry the C-G skews accordingly. 
 #' @export
 #'
 #' @examples
@@ -56,57 +56,18 @@ nplet.nskewpersize = function(seq, sizes = c(1E3, 1E4, 1E5, 1E6),
   list(at=nskewsAT, cg=nskewsCG)
 }
 
-#' Calculates the standard deviation for n-plet skews.
+#' Standard deviation for n-plet skews of sequences of different sizes
+#' for a fixed n.
+#' Note: the n-plet size n is not store in the the data structure yet.
 #'
 #' @param skews Data structure of type: <base-tuple>$<sizes>$<skews>, e.g.
 #' `at`$1000$c(.01, 0.2, 0.1)
 #'
-#' @return
+#' @return Data structure of type: <base-tuple>$<sizes>$<std dev of skews>, e.g.
+#' `at`$1000$0.2
 #' @export
 #'
 #' @examples
 nplet.stddevpersize = function(skews) {
   list(at = lapply(skews$at, sd), cg = lapply(skews$cg, sd))
-}
-
-#' Plot the standard deviation of skews for a specific length as
-#' a bar diagram.
-#'
-#' @param nskewssd Nested data strucuture as returned by nplet.stddevpersize.
-#' @param seqid A brief description of the sequence.
-#' @param yMax Maximum range of y-axis. Default is 0.05.
-#'
-#' @return
-#' @export
-#'
-#' @examples
-nplet.stddevplotpersize = function(nskewssd, 
-                                   seqId = "Unkn. sequence",
-                                   yMax = 0.05,
-                                   xtickssize = 2) {
-  nat = names(nskewssd$at[1:length(nskewssd$at)]) # Retrieve seq. sizes
-  ncg = names(nskewssd$cg[1:length(nskewssd$cg)])
-  
-  dtick = length(nat) / xtickssize # Number of ticks - 1
-  xticks = seq(dtick, length(nat), by = dtick)
-  xlabels = c(nat[1], nat[xticks])
-  xlabels = lapply(xlabels, function (l) sprintf("%1.1e", as.numeric(l)))
-  space = 0.5
-  pos = c(1, (xticks * (1 + space)) - space) # Position of x labels.
-
-  par(mfrow=c(1, 2)) # Skews side by side
-  barplot(unlist(nskewssd$at), names.arg = nat, space = .5,
-          main = seqId, xlab = "seq. size", 
-          ylab = "std. dev. of A~T skews",
-          ylim = c(0, yMax), xaxt="n")  
-  axis(1, labels = xlabels, at = pos, las = 1)
-  grid (0,NULL, lty = 6, col = "cornsilk2") 
-  
-  barplot(unlist(nskewssd$cg), names.arg = ncg, space = .5,
-          main = seqId, xlab = "seq. size", 
-          ylab = "std. dev. of C~G skews",
-          ylim = c(0, yMax), xaxt="n")  
-  axis(1, labels = xlabels, at = pos, las = 1)  
-  grid (0,NULL, lty = 6, col = "cornsilk2") 
-  par(mfrow=c(1, 1)) # Switch it off again?
 }
