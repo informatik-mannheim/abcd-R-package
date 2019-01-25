@@ -209,6 +209,7 @@ nplet.normpartskews_ = function(seq, nSizes = c(2, 4, 8),
 #'
 #' @examples
 nplet.normrandskews_ = function(seq, nSizes = c(1, 2, 3), cf = 1,
+                                multipleN = FALSE,
                                 skewF = nplet.skewj) {
   
   # Center skews such that they have a mean value of 0.
@@ -226,10 +227,13 @@ nplet.normrandskews_ = function(seq, nSizes = c(1, 2, 3), cf = 1,
     nskewsAT = c()
     nskewsCG = c()
     
-    subSeq = rndsubseq(seq, n, nMax) # Get a subsequence
+    subSeq = rndsubseq(seq, n, nMax, multipleN = multipleN) # Get a subsequence
+    #subSeq = rndsubseq(seq, n, nMax) # Get a subsequence
     nSkewsATCG = skewF(subSeq, n)
     
     # First iteration:
+    
+    # Centered around all positions k:
     nskewsAT = c(nskewsAT, centerskew(nSkewsATCG$at))
     nskewsCG = c(nskewsCG, centerskew(nSkewsATCG$cg))
     
@@ -245,6 +249,7 @@ nplet.normrandskews_ = function(seq, nSizes = c(1, 2, 3), cf = 1,
         nskewsCG = c(nskewsCG, centerskew(nSkewsATCG$cg))
       }
     }
+    # Add the values for the current n-plet size:
     skewsAT[[i]] = nskewsAT
     skewsCG[[i]] = nskewsCG
     i = i + 1
