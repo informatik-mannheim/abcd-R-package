@@ -165,9 +165,9 @@ nplet.sdskewplot(skews, nSizes = nsizes, seqId = "demo sequence",
 
 # Normalized skews
 
-Calculate the sample-size normalized skews with the function `nplet.sizenormskews` and plot them with `nplet.skewplot`. Note that we use the optional parameter `ylabPrefix` in `nplet.skewplot` to modify the y-axis label. A sufficient cover factor is $cf > 50$, optimal is $c > 100$. (It takes more than a couple of minutes if $cf = 25$.)
+Calculate the sample-size normalized skews with the function `nplet.sizenormskews` and plot them with `nplet.skewplot`. Note that we use the optional parameter `ylabPrefix` in `nplet.skewplot` to modify the y-axis label. A sufficient cover factor is $cf > 50$, optimal is $c > 100$. (It takes more than a couple of minutes if $cf = 25$, so we set $cf = 10$.)
 ```{r}
-ndemoskews = nplet.sizenormskews(demoseq, nsizes, cf = 50)
+ndemoskews = nplet.sizenormskews(demoseq, nsizes, cf = 10)
 nplet.skewplot(ndemoskews, seqId = "demo sequence", yMax = 0.5, 
                ylabPrefix = "size norm. ")
 ```
@@ -266,57 +266,3 @@ seqrnd2 = sequence.rndbycondprob(100000, cp)
 sequence.basedist(seqrnd2)
 sequence.basedist(seqrnd2) / sum(sequence.basedist(seqrnd2))
 ``` 
-
-# Some definitions
-
-In this text we use the following variables or constants:
-
- * *N* is the size (length) of a sequence
- * *n* is the size of a n-plet
- * *m* is the number of partitions
- 
- 
-Let us denote the nucleotide bases {by $B:=\{A,C,G,T(U)\}$ whose letters $A,C, G$ and $T(U)$ stand for Adenine, Cytosine, Guanine and Thymine (Uracil), respectively. Thus the alphabet consists of four letters and its powers $B^2=\{ N_1N_2: N_i \in B\}$ and $B^3=\{ N_1N_2N_3 : N_i \in B\}$ contain all *dinucleotides*}* and all *trinucleotides*, the latter being the codons. For an arbitrary $n\in IN$ we will call elements of $B^n=\{ N_1N_2...N_n : N_i \in B\}$ $n$-nucleotides or, equivalently, $n$-plets.
-
-$$F_n(X;N,k)$$ 
-is the absolute frequency of the nucleotide base $N$ in the $k$ th positions ($1\leq k\leq n$) of each $n$-plet in  $X_n$.
-
-A skew is defined for two bases $N$ and $M$: 
-$$S_{N\sim M}(n,k)=\frac{F_n(X;N;k)-F_n(X;M;k)}{F_n(X;N;k)+F_n(X;M;k)}$$
-
-# Outtakes
-
-Here are some obsolete things:
-
-## Normalization with mixed positions
-
-As used in J. theor. Biol. paper manuscript.
-
-A subsequence R with random start position is drawn. The skews for R are computed and centered around 0, i.e. x - mean(x). nskewAT contains the centered skews for A~T. nskewAT is extended by adding more centered skews if there are repeatitions. nskewAT is created for every n-plet size n.
-```{r}
-ndemoskews = nplet.normrandskews_(demoseq, nSizes = nsizes, 
-                                  multipleN = TRUE, cf = 100)
-nplet.skewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
-nplet.sdskewplot(ndemoskews, seqId = "demo sequence", nSizes = nsizes,
-                 yMax = 0.4)
-```
-
-```{r}
-nsizes = c(1, 2, 3, 4, 5)
-skews123 = nplet.skews(seq, nSizes = nsizes)
-skews123
-```
-```{r}
-nskews123 = nplet.normrandskews_(demoseq, nsizes, cf = 3)
-# nskews123$at$`3`
-nskews123$at
-```
-
-
-## Normalization based on partitions?
-
-I do not know anymore why we have this.
-```{r}
-ndemoskews = nplet.normpartskews_(demoseq, nsizes)
-nplet.skewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
-```
