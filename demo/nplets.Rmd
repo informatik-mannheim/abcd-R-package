@@ -165,9 +165,9 @@ nplet.sdskewplot(skews, nSizes = nsizes, seqId = "demo sequence",
 
 # Normalized skews
 
-Calculate the sample-size normalized skews with the function `nplet.sizenormskews` and plot them with `nplet.skewplot`. Note that we use the optional parameter `ylabPrefix` in `nplet.skewplot` to modify the y-axis label:
+Calculate the sample-size normalized skews with the function `nplet.sizenormskews` and plot them with `nplet.skewplot`. Note that we use the optional parameter `ylabPrefix` in `nplet.skewplot` to modify the y-axis label. A sufficient cover factor is $cf > 50$, optimal is $c > 100$. (It takes more than a couple of minutes if $cf = 25$.)
 ```{r}
-ndemoskews = nplet.sizenormskews(demoseq, nsizes)
+ndemoskews = nplet.sizenormskews(demoseq, nsizes, cf = 50)
 nplet.skewplot(ndemoskews, seqId = "demo sequence", yMax = 0.5, 
                ylabPrefix = "size norm. ")
 ```
@@ -290,11 +290,28 @@ Here are some obsolete things:
 
 ## Normalization with mixed positions
 
-As used in J. theor. Paper manuscript:
+As used in J. theor. Biol. paper manuscript.
+
+A subsequence R with random start position is drawn. The skews for R are computed and centered around 0, i.e. x - mean(x). nskewAT contains the centered skews for A~T. nskewAT is extended by adding more centered skews if there are repeatitions. nskewAT is created for every n-plet size n.
 ```{r}
-ndemoskews = nplet.normrandskews_(demoseq, nsizes)
+ndemoskews = nplet.normrandskews_(demoseq, nSizes = nsizes, 
+                                  multipleN = TRUE, cf = 100)
 nplet.skewplot(ndemoskews, seqId = "demo sequence", yMax = 0.4)
+nplet.sdskewplot(ndemoskews, seqId = "demo sequence", nSizes = nsizes,
+                 yMax = 0.4)
 ```
+
+```{r}
+nsizes = c(1, 2, 3, 4, 5)
+skews123 = nplet.skews(seq, nSizes = nsizes)
+skews123
+```
+```{r}
+nskews123 = nplet.normrandskews_(demoseq, nsizes, cf = 3)
+# nskews123$at$`3`
+nskews123$at
+```
+
 
 ## Normalization based on partitions?
 

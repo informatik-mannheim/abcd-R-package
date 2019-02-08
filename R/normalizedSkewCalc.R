@@ -100,8 +100,8 @@ nplet.sizenormskews = function(seq, nSizes = c(1, 2, 3), cf = 3,
     avgskewsAT = c() # List for average skews (for repeats); one entry for each k
     avgskewsCG = c()
     for (k in 1:n) { # all positions
-      avgskewsAT = c(avgskewsAT, mean(mskewsAT[k,]))
-      avgskewsCG = c(avgskewsCG, mean(mskewsCG[k,]))
+      avgskewsAT = c(avgskewsAT, mean(mskewsAT[k,])) # S_A~T(X,n,k)
+      avgskewsCG = c(avgskewsCG, mean(mskewsCG[k,])) # S_C~G(X,n,k)
     }
     normSkewAT[[i]] = avgskewsAT # 1 to n entries; for each position k one.
     normSkewCG[[i]] = avgskewsCG
